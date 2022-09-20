@@ -73,5 +73,3 @@ exports.pastura_search = function (req, res) {
     
      res.sendFile('/view/pasturas/search.html', { root: '.' })
   };
-)
-};
