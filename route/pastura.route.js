@@ -103,27 +103,27 @@ MongoClient.connect(url, function(err, db) {
   });
 });*/
 
-router.get('/prueba', async (req, res) => {
+router.get('/search', async (req, res) => {
   try {
     //var params = Object.keys(req.query).map(key => req.query[key]);
     //console.log(params);
     var coso = {};
-    for (var propName in req.query){
+    for (var propName in req.query) {
       //console.log(propName+':'+req.query[propName]);
-      coso[propName]=req.query[propName];
+      coso[propName] = req.query[propName];
     }
     //console.log(coso);
     Pastura.find(coso).exec((err, data) => {
-        if (err) return handleError(err);
-          res.set('Access-Control-Allow-Origin', '*');
-          console.log(data)
-          res.json(data)
-        });
+      if (err) return handleError(err);
+      res.set('Access-Control-Allow-Origin', '*');
+      console.log(data)
+      res.json(data)
+    });
   }
   catch (error) {
     res.status(500).json({ message: error.message })
   }
-  
+
 });
 
 module.exports = router;
