@@ -103,6 +103,43 @@ MongoClient.connect(url, function(err, db) {
   });
 });*/
 
+router.get('/pasturas', async (req, res) => {
+  try {
+    //var params = Object.keys(req.query).map(key => req.query[key]);
+    //console.log(params);
+    var coso = {};
+    for (var propName in req.query) {
+      //console.log(propName+':'+req.query[propName]);
+      coso[propName] = req.query[propName];
+    }
+    //console.log(coso);
+    Pastura.find(coso).exec((err, data) => {
+      if (err) return handleError(err);
+      res.setHeader('X-Total-Count', data.length);
+      res.setHeader('Content-Range', 'pasturas 0-20/' + data.length);
+      //res.setHeader('X-Total-Count', data.length);
+      
+      console.log(data)
+      res.send(data)
+    });
+  }
+  catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+
+});
+
+
+router.get('/pasturas/:id', async (req, res) => {
+    try{
+        const data = await Pastura.find({id: req.params.id});
+        res.json(data[0])
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
 router.get('/search', async (req, res) => {
   try {
     //var params = Object.keys(req.query).map(key => req.query[key]);
@@ -116,7 +153,7 @@ router.get('/search', async (req, res) => {
     Pastura.find(coso).exec((err, data) => {
       if (err) return handleError(err);
       res.set('Access-Control-Allow-Origin', '*');
-      console.log(data)
+      //console.log(data)
       res.json(data)
     });
   }

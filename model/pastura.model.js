@@ -3,6 +3,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var PasturaSchema = new Schema({
+  id:{
+    type: Number,
+  },
   Familia: {
     type: String,
     validate: [
