@@ -107,11 +107,15 @@ router.get('/pasturas', async (req, res) => {
   try {
     //var params = Object.keys(req.query).map(key => req.query[key]);
     //console.log(params);
+    
+    if(req.query["filter"]==undefined){
+
     var coso = {};
     for (var propName in req.query) {
       //console.log(propName+':'+req.query[propName]);
       coso[propName] = req.query[propName];
     }
+      //console.log(req.query["filter"]);
     //console.log(coso);
     Pastura.find(coso).exec((err, data) => {
       if (err) return handleError(err);
@@ -119,9 +123,25 @@ router.get('/pasturas', async (req, res) => {
       res.setHeader('Content-Range', 'pasturas 0-20/' + data.length);
       //res.setHeader('X-Total-Count', data.length);
       
-      console.log(data)
+      //console.log(data)
       res.send(data)
     });
+    }else{
+      var coso = {};
+      var filter=JSON.parse(req.query["filter"]);
+      console.log("filter: ");
+      console.log(filter);
+    for (var propName in filter) {
+      coso[propName] = filter[propName];
+    }
+
+    Pastura.find(coso).exec((err, data) => {
+      if (err) return handleError(err);
+      res.setHeader('X-Total-Count', data.length);
+      res.setHeader('Content-Range', 'pasturas 0-20/' + data.length);
+      res.send(data)
+    });
+    }
   }
   catch (error) {
     res.status(500).json({ message: error.message })
