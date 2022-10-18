@@ -129,8 +129,8 @@ router.get('/pasturas', async (req, res) => {
     }else{
       var coso = {};
       var filter=JSON.parse(req.query["filter"]);
-      console.log("filter: ");
-      console.log(filter);
+      //console.log("filter: ");
+      //console.log(filter);
     for (var propName in filter) {
       coso[propName] = filter[propName];
     }
@@ -154,6 +154,32 @@ router.get('/pasturas/:id', async (req, res) => {
     try{
         const data = await Pastura.find({id: req.params.id});
         res.json(data[0])
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
+router.put('/pasturas/:id', async (req, res) => {
+  const filter={id: req.params.id};
+  const update=req.body;
+    try{
+      let p = await Pastura.findOneAndUpdate(filter, update, {
+          new: true
+        });
+      p = await Pastura.findOne(filter);
+      //p.Tipo_Vegetativo="Rizomatozo";
+      //await p.save();
+      /*
+      await p.updateOne({id:1}, {$set:{ Tipo_Vegetativo: 'Pastura cheta'}});
+      p2 = await Pastura.findOne(filter);
+      */
+      console.log("p: ");
+      console.log(p);
+      //console.log("p: ");
+      //console.log(p);
+        //const data = await Pastura.find({id: req.params.id});
+        res.json(p)
     }
     catch(error){
         res.status(500).json({message: error.message})

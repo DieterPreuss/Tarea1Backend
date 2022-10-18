@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var PasturaSchema = new Schema({
-  id:{
+  id: {
     type: Number,
   },
   Familia: {
@@ -13,6 +13,10 @@ var PasturaSchema = new Schema({
         return nombre.length <= 200;
       },
       'El nombre no deberia exceder los 200 caracteres '],
+  },
+  GRAMINEAS: {
+    type: String,
+    enum: ['Agrostis montevidensis', 'Andropogon lateralis', 'Andropogon selloanus', 'Andropogon ternatus', 'Aristida filifolia', 'Aristida laevis', 'Aristida murina', 'Aristida uriguayensis', 'Aristida venustula', 'Axonopus affinis', '-']
   },
   Especie: {
     type: String,
@@ -24,7 +28,7 @@ var PasturaSchema = new Schema({
   },
   Tipo_Vegetativo: {
     type: String,
-    enum: ['Cespitoso', 'Estolonifero', 'Rizomatozo', 'Estolonifero-rizomatozo', 'Estolonifero-rizomatiforme']
+    enum: ['Cespitoso', 'Estolonifero', 'Rizomatozo', 'Estolonifero-rizomatozo', 'Estolonifero-rizomatiforme', '-']
   },
   Rizoma_engrozado: {
     type: String,
@@ -32,7 +36,7 @@ var PasturaSchema = new Schema({
   },
   Macollo1: {
     type: String,
-    enum: ['Semi rollizo', 'Comprimido', 'Semi Rolliza', 'Rollizo', 'Semi Comprimido', 'Semi Rollizo o rollizo', 'Muy Comprimido', 'Semi comprimido-Rollizo']
+    enum: ['Semi rollizo', 'Comprimido', 'Semi Rolliza', 'Rollizo', 'Semi Comprimido', 'Semi Rollizo o rollizo', 'Muy Comprimido', 'Semi comprimido-Rollizo', '-']
   },
   Macollo2: {
     type: String,
@@ -40,11 +44,11 @@ var PasturaSchema = new Schema({
   },
   Consistecia_de_la_ligula: {
     type: String,
-    enum: ['Membranácea', 'Disuelta en pelos', 'Mixta', '-', 'No visible']
+    enum: ['Membranacea', 'Disuelta en pelos', 'Mixta', '-', 'No visible']
   },
   Forma_de_la_ligula: {
     type: String,
-    enum: ['Truncada y dientada', 'Truncada', 'Aguda', 'Redondeada']
+    enum: ['Truncada y dientada', 'Truncada', 'Aguda', 'Redondeada', '-']
   },
   Tamaño: {
     type: String,
@@ -61,7 +65,7 @@ var PasturaSchema = new Schema({
   },
   Color_de_la_ligula: {
     type: String,
-    enum: ['Cataño', 'Blanca o castaño', 'Castaño', 'Castaña', 'Castaño en hojas maduras']
+    enum: ['Cataño', 'Blanca o castaño', 'Castaño', 'Castaña', 'Castaño en hojas maduras', '-']
   },
   Forma_de_la_lamina: {
     type: String,
@@ -69,7 +73,7 @@ var PasturaSchema = new Schema({
   },
   Canaliculada: {
     type: String,
-    enum: ['Canaliculada', 'Acanalada', 'Ligeramente canaliculada']
+    enum: ['Canaliculada', 'Acanalada', 'Ligeramente canaliculada', '-']
   },
   Tipo_de_lamina: {
     type: String,
@@ -109,7 +113,7 @@ var PasturaSchema = new Schema({
   },
   Tipo_productivo: {
     type: String,
-    enum: ['Tierno', 'Duro', 'Ordinario', 'Tierno-Ordinario', 'Tierno-Ordinario', 'Ordinaria', 'Ordinara', 'Fino', 'Tierno antes de emitir fruto', 'Ordinario-Tierno', 'Tierno-Fino', 'Muy enano', 'Ordinario a tierno', 'Ordinario-Duro']
+    enum: ['Tierno', 'Duro', 'Ordinario', 'Tierno-Ordinario', 'Tierno-Ordinario', 'Ordinaria', 'Ordinara', 'Fino', 'Tierno antes de emitir fruto', 'Ordinario-Tierno', 'Tierno-Fino', 'Muy enano', 'Ordinario a tierno', 'Ordinario-Duro', '-']
   },
   Tipo_de_Campo: {
     type: String,
