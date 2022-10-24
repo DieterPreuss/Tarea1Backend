@@ -107,40 +107,40 @@ router.get('/pasturas', async (req, res) => {
   try {
     //var params = Object.keys(req.query).map(key => req.query[key]);
     //console.log(params);
-    
-    if(req.query["filter"]==undefined){
 
-    var coso = {};
-    for (var propName in req.query) {
-      //console.log(propName+':'+req.query[propName]);
-      coso[propName] = req.query[propName];
-    }
-      //console.log(req.query["filter"]);
-    //console.log(coso);
-    Pastura.find(coso).exec((err, data) => {
-      if (err) return handleError(err);
-      res.setHeader('X-Total-Count', data.length);
-      res.setHeader('Content-Range', 'pasturas 0-20/' + data.length);
-      //res.setHeader('X-Total-Count', data.length);
-      
-      //console.log(data)
-      res.send(data)
-    });
-    }else{
+    if (req.query["filter"] == undefined) {
+
       var coso = {};
-      var filter=JSON.parse(req.query["filter"]);
+      for (var propName in req.query) {
+        //console.log(propName+':'+req.query[propName]);
+        coso[propName] = req.query[propName];
+      }
+      //console.log(req.query["filter"]);
+      //console.log(coso);
+      Pastura.find(coso).exec((err, data) => {
+        if (err) return handleError(err);
+        res.setHeader('X-Total-Count', data.length);
+        res.setHeader('Content-Range', 'pasturas 0-20/' + data.length);
+        //res.setHeader('X-Total-Count', data.length);
+
+        //console.log(data)
+        res.send(data)
+      });
+    } else {
+      var coso = {};
+      var filter = JSON.parse(req.query["filter"]);
       //console.log("filter: ");
       //console.log(filter);
-    for (var propName in filter) {
-      coso[propName] = filter[propName];
-    }
+      for (var propName in filter) {
+        coso[propName] = filter[propName];
+      }
 
-    Pastura.find(coso).exec((err, data) => {
-      if (err) return handleError(err);
-      res.setHeader('X-Total-Count', data.length);
-      res.setHeader('Content-Range', 'pasturas 0-20/' + data.length);
-      res.send(data)
-    });
+      Pastura.find(coso).exec((err, data) => {
+        if (err) return handleError(err);
+        res.setHeader('X-Total-Count', data.length);
+        res.setHeader('Content-Range', 'pasturas 0-20/' + data.length);
+        res.send(data)
+      });
     }
   }
   catch (error) {
@@ -149,41 +149,55 @@ router.get('/pasturas', async (req, res) => {
 
 });
 
-
+// SHOW
 router.get('/pasturas/:id', async (req, res) => {
-    try{
-        const data = await Pastura.find({id: req.params.id});
-        res.json(data[0])
-    }
-    catch(error){
-        res.status(500).json({message: error.message})
-    }
+  try {
+    const data = await Pastura.find({ id: req.params.id });
+    res.json(data[0])
+  }
+  catch (error) {
+    res.status(500).json({ message: error.message })
+  }
 })
 
+// UPDATE
 router.put('/pasturas/:id', async (req, res) => {
-  const filter={id: req.params.id};
-  const update=req.body;
-    try{
-      let p = await Pastura.findOneAndUpdate(filter, update, {
-          new: true
-        });
-      p = await Pastura.findOne(filter);
-      //p.Tipo_Vegetativo="Rizomatozo";
-      //await p.save();
-      /*
-      await p.updateOne({id:1}, {$set:{ Tipo_Vegetativo: 'Pastura cheta'}});
-      p2 = await Pastura.findOne(filter);
-      */
-      console.log("p: ");
-      console.log(p);
-      //console.log("p: ");
-      //console.log(p);
-        //const data = await Pastura.find({id: req.params.id});
-        res.json(p)
-    }
-    catch(error){
-        res.status(500).json({message: error.message})
-    }
+  const filter = { id: req.params.id };
+  const update = req.body;
+  try {
+    let p = await Pastura.findOneAndUpdate(filter, update, {
+      new: true
+    });
+    p = await Pastura.findOne(filter);
+    res.json(p)
+  }
+  catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+})
+
+// DELETE
+router.delete('/pasturas/:id', async (req, res) => {
+  try {
+    const filter = { id: req.params.id };
+    p = await Pastura.findOne(filter);
+    const data = await Pastura.findByIdAndDelete(p._id)
+  }
+  catch (error) {
+    res.status(400).json({ message: error.message })
+  }
+})
+
+// CREATE
+router.post('/pasturas', async (req, res) => {
+  try {
+    console.log(req.body)
+    p = await Pastura.create(req.body);
+    res.json(p)
+  }
+  catch (error) {
+    res.status(400).json({ message: error.message })
+  }
 })
 
 router.get('/search', async (req, res) => {

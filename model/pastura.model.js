@@ -16,7 +16,9 @@ var PasturaSchema = new Schema({
   },
   GRAMINEAS: {
     type: String,
+    /*
     enum: ['Agrostis montevidensis', 'Andropogon lateralis', 'Andropogon selloanus', 'Andropogon ternatus', 'Aristida filifolia', 'Aristida laevis', 'Aristida murina', 'Aristida uriguayensis', 'Aristida venustula', 'Axonopus affinis', '-']
+    */
   },
   Especie: {
     type: String,
@@ -117,8 +119,10 @@ var PasturaSchema = new Schema({
   },
   Tipo_de_Campo: {
     type: String,
+  },
+  Imagen: {
+    type: Buffer,
   }
-
 });
 
 // Exportar el modelo
