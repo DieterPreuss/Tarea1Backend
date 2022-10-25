@@ -46,43 +46,43 @@ router.get('/getAll', async (req, res) => {
 /*
 //Get by ID Method (Getting data based on the ID)
 router.get('/getOne/:id', async (req, res) => {
-    try{
-        const data = await Model.findById(req.params.id);
-        res.json(data)
-    }
-    catch(error){
-        res.status(500).json({message: error.message})
-    }
+        try{
+                const data = await Model.findById(req.params.id);
+                res.json(data)
+        }
+        catch(error){
+                res.status(500).json({message: error.message})
+        }
 })
 
 //Update by ID Method (Updating data based on the ID)
 router.patch('/update/:id', async (req, res) => {
-    try {
-        const id = req.params.id;
-        const updatedData = req.body;
-        const options = { new: true };
+        try {
+                const id = req.params.id;
+                const updatedData = req.body;
+                const options = { new: true };
 
-        const result = await Model.findByIdAndUpdate(
-            id, updatedData, options
-        )
+                const result = await Model.findByIdAndUpdate(
+                        id, updatedData, options
+                )
 
-        res.send(result)
-    }
-    catch (error) {
-        res.status(400).json({ message: error.message })
-    }
+                res.send(result)
+        }
+        catch (error) {
+                res.status(400).json({ message: error.message })
+        }
 })
 
 //Delete by ID Method (Deleting data based on the ID)
 router.delete('/delete/:id', async (req, res) => {
-    try {
-        const id = req.params.id;
-        const data = await Model.findByIdAndDelete(id)
-        res.send(`Document with ${data.name} has been deleted..`)
-    }
-    catch (error) {
-        res.status(400).json({ message: error.message })
-    }
+        try {
+                const id = req.params.id;
+                const data = await Model.findByIdAndDelete(id)
+                res.send(`Document with ${data.name} has been deleted..`)
+        }
+        catch (error) {
+                res.status(400).json({ message: error.message })
+        }
 })
 */
 
@@ -92,15 +92,15 @@ var url = "mongodb+srv://Usuario:bIoKQSWZyOVBy5g3@cluster-tareas.xvmmwes.mongodb
 //mongodb+srv://Usuario:bIoKQSWZyOVBy5g3@cluster-tareas.xvmmwes.mongodb.net/?retryWrites=true&w=majority
 /*
 MongoClient.connect(url, function(err, db) {
-  if (err) throw err;
-  var dbo = db.db("mydb");
-  var query = { Tipo_Vegetativo
-: "Cespitoso" };
-  dbo.collection("customers").find(query).toArray(function(err, result) {
     if (err) throw err;
-    console.log(result);
-    db.close();
-  });
+    var dbo = db.db("mydb");
+    var query = { Tipo_Vegetativo
+: "Cespitoso" };
+    dbo.collection("customers").find(query).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        db.close();
+    });
 });*/
 
 router.get('/pasturas', async (req, res) => {
@@ -153,6 +153,7 @@ router.get('/pasturas', async (req, res) => {
 router.get('/pasturas/:id', async (req, res) => {
   try {
     const data = await Pastura.find({ id: req.params.id });
+    //console.log(data[0]);
     res.json(data[0])
   }
   catch (error) {

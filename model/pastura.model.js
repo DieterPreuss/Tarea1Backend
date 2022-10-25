@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var PasturaSchema = new Schema({
   id: {
-    type: Number,
+    type: String,
   },
   Familia: {
     type: String,
